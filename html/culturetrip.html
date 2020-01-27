@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>[Dupe] Culture Trip</title>
+
+  <script src="https://kit.fontawesome.com/d4ba4a9b9a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="culturetrip.css"> -->
+  <style>
+    * {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --red-color: #ff2057;
+}
+
+body {
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: rgb(255, 255, 255);
+}
+
+div {
+  display: block;
+  /* border: 1px solid yellowgreen; */
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.card {
+  padding: 0;
+  border: 1px transparent;
+}
+
+.card-body {
+  padding: 0;
+  /* padding-top: 10px; */
+}
+
+.card-text.red {
+  color: var(--red-color);
+}
+
+.img-container {
+  overflow: hidden;
+}
+
+.img-container.radius {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+img {
+  transition: .25s ease-in-out;
+}
+
+img.card-img-top:hover {
+  transform: scale(1.1);
+}
+
+.input-field {
+  width: 35%;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.mx-6 {
+  margin: 0 4rem;
+}
+
+.px-6 {
+  padding: 0 4rem;
+}
+
+.search {
+  width: 30%;
+}
+
+.spotlight {
+  position: relative;
+  color: rgb(255, 255, 255);
+  height: 350px;
+  width: 100%;
+  background-color: rgb(18, 20, 22);
+  z-index: 3;
+}
+
+.spotlight-imagestyle {
+  background-image: url(/bin/7-copy.jpg);
+  max-height: 350px;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.spotlight-coverstyle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  pointer-events: none;
+  background: linear-gradient(rgba(90, 90, 90, 0.35) 0px, rgba(125, 185, 232, 0) 100%);
+}
+
+.spotlight-top-wrapper {
+  position: absolute;
+  top: 0px;
+  height: 72px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.spotlight-title-box {
+  position: absolute;
+  width: 100%;
+  top: 25%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+  </style>
+</head>
+
+<body>
+  <div class="spotlight">
+    <div class="spotlight-imagestyle"></div>
+    <div class="spotlight-coverstyle"></div>
+    <div class="spotlight-top-wrapper d-flex">
+      <div class="spotlight-header-logo ml-3">
+        <img height="35px" src="/support/ct_logo_horizontal_wp2_white.png" alt="/support/no-photo-icon.ico">
+      </div>
+      <span class="spotlight-right-menu d-flex">
+        <div class="sections-menu mx-1 px-1">Sections</div>
+        <div class="wishlists-menu mx-1 px-1">Wishlists</div>
+        <div class="sign-up mx-1 mr-3 px-1">Sign up</div>
+      </span>
+    </div>
+    <div class="spotlight-title-box">
+      <div class="spotlight-main-title">
+        <h1>Created for the Curious</h1>
+      </div>
+      <div class="search-wrapper">
+        <div class="input-field">
+          <button class="btn-search"> <i class="fa fa-search"></i> </button>
+          <input type="text" class="search" placeholder="Discover a city">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="homepage-section">
+
+    <!-- CULTURE TRIP GUIDES -->
+    <div class="mt-4 px-5">
+      <h4 class="bold">Culture Trip Guides</h4>
+    </div>
+    <div class="card-deck mt-3 mx-2 px-4">
+      <div class="card px-1">
+        <div class="img-container radius">
+          <img
+            src="https://img.theculturetrip.com/450x301/wp-content/uploads/2019/04/shanghai-hires-ia_0211_shanghailocationheader_liamcobb_final.jpg"
+            class="card-img-top" alt="/support/no-photo-icon.ico">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title mt-2 bold">Shanghai</h5>
+          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+            content. This content is a little bit longer.</p>
+        </div>
+      </div>
+      <div class="card px-1">
+        <div class="img-container radius">
+          <img src="https://img.theculturetrip.com/450x301/wp-content/uploads/2019/04/san-francisco_gs_header.jpg"
+            class="card-img-top" alt="/support/no-photo-icon.ico">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title mt-2 bold">San Fransisco</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        </div>
+      </div>
+      <div class="card px-1">
+        <div class="img-container radius">
+          <img src="https://img.theculturetrip.com/450x301/wp-content/uploads/2019/04/beijing-header.jpg"
+            class="card-img-top" alt="/support/no-photo-icon.ico">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title mt-2 bold">Beijing</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            content. This card has even longer content than the first to show that equal height action.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- ARTICLE EXPLORING -->
+    <div class="mt-4 px-5">
+      <h4 class="bold">Start Exploring Reykjavik</h4>
+    </div>
+    <div class="card-deck mt-3 mx-2 px-4">
+      <div class="card explore">
+        <div class="img-container">
+          <img src="https://img.theculturetrip.com/320x213/wp-content/uploads/2017/06/2822162721_e246ed63dc_o.jpg"
+            class="card-img-top" alt="..."></div>
+        <div class="card-body">
+          <h7 class="card-text mt-2 red bold">Guides & Tips</h7>
+          <h6 class="card-title bold">10 Reasons You Should Visit Stykkishólmur Before Reykjavík</h6>
+        </div>
+      </div>
+      <div class="card explore">
+        <div class="img-container">
+          <img src="https://img.theculturetrip.com/320x213/wp-content/uploads/2019/09/cydx5m.jpg" class="card-img-top"
+            alt="..."></div>
+        <div class="card-body">
+          <h7 class="card-text mt-2 red bold">Restaurant</h7>
+          <h6 class="card-title bold">Discover the Best Restaurants in Reykjavík</h6>
+        </div>
+      </div>
+      <div class="card explore">
+        <div class="img-container">
+          <img src="https://img.theculturetrip.com/320x213/wp-content/uploads/2017/02/7553890202_6d489c6256_k.jpg"
+            class="card-img-top" alt="..."></div>
+        <div class="card-body">
+          <h7 class="card-text mt-2 red bold">See & Do</h7>
+          <h6 class="card-title bold">How to Spend 48 Hours in Reykjavík</h6>
+        </div>
+      </div>
+      <div class="card explore">
+        <div class="img-container">
+          <img src="https://img.theculturetrip.com/320x213/wp-content/uploads/2018/04/img_3725.jpg" class="card-img-top"
+            alt="..."></div>
+        <div class="card-body">
+          <h7 class="card-text mt-2 red bold">Art</h7>
+          <h6 class="card-title bold">The 10 Most Instagrammable Spots in Reykjavík</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ARTICLE SPOTLIGHT -->
+
+
+  <!-- FEATURED ARTICLE -->
+
+
+  <!-- ORIGINAL SERIES -->
+
+
+  </div>
+  <footer>
+
+  </footer>
+
+
+
+
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+
+</html>
