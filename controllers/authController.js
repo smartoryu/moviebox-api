@@ -13,45 +13,61 @@ module.exports = {
     res.send(hashpassword);
   },
   register: (req, res) => {
-    let { name, username, password, email } = req.body;
-    let sql = `SELECT username FROM user WHERE username = '${username}'`;
-    mysqldb.query(sql, (err1, res1) => {
-      if (err1) res.status(500).send({ status: "error", err1 });
+    let { name, username, email, password1, password2 } = req.body;
 
-      if (res1.length > 0) {
-        return res.status(200).send({ status: "error", message: "Username not available!" });
-      } else {
-        let hashpassword = encrypt(password);
-        let data = {
-          name,
-          username,
-          password: hashpassword,
-          email,
-          roleid: 3,
-          suspend: 0,
-          verified: 0,
-          lastlogin: moment().format("YYYY-MM-DD HH:mm:ss")
+    let sql = `SELECT * FROM user WHERE username='${username}'`;
+    mysqldb.query(sql, (err, resUser) => {
+      if (err) res.status(500).send(res);
+
+      // ===== ALL INPUT MUST BE FILLED
+      if (!name || !username || !email || !password1 || !password2) {
+        return res.status(200).send({ message: "All input must be filled!", status: "WRONG_FORM" });
+      }
+
+      // ===== IF USERNAME ALREADY REGISTERED
+      if (resUser.length > 0) {
+        return res.status(200).send({ message: "Username not available", status: "WRONG_USER" });
+      }
+
+      // ===== IF PASSWORD LESS THAN 4 CHARACTER
+      if (password1.length < 4) {
+        return res.status(200).send({ message: "Password must be more than 4 characters!", status: "WRONG_PASS" });
+      }
+
+      // ===== IF PASSWORD DOESN'T MATCH
+      if (password1 !== password2) {
+        return res.status(200).send({ message: "Password doesn't match!", status: "WRONG_PASS" });
+      }
+
+      // ===== USERNAME PASSWORD ARE GOOD TO GO!
+      let newUser = {
+        name,
+        username,
+        email,
+        password: encrypt(password2),
+        roleid: 3,
+        suspend: 0,
+        verified: 0,
+        lastlogin: moment().format("YYYY-MM-DD HH:mm:ss")
+      };
+      sql = `INSERT INTO user SET ?`;
+      mysqldb.query(sql, newUser, (err, resNewUser) => {
+        if (err) res.status(500).send(res);
+
+        let verifyLink = `kepo`;
+        let mailOptions = {
+          from: "kurir <prikenang.tech@gmail.com>",
+          to: email,
+          subject: "Verify your account",
+          html: `Please verify your account by clicking on this <a href=${verifyLink}>link</a>`
         };
 
-        sql = "INSERT INTO user SET ?";
-        mysqldb.query(sql, data, (err2, res2) => {
-          if (err2) res.status(500).send({ status: "error", err2 });
+        transporter.sendMail(mailOptions, (err, resMail) => {
+          if (err) res.status(500).send(res);
 
-          let VerifyLink = `http://localhost:3000/verified?username=${username}&password=${hashpassword}`;
-          let mailOptions = {
-            from: "kurir <prikenang.tech@gmail.com>",
-            to: email,
-            subject: "Verify your account",
-            html: `Please verify your account by clicking on this <a href=${VerifyLink}>link</a>`
-          };
-          transporter.sendMail(mailOptions, (err3, res3) => {
-            if (err3) res.status(500).send({ status: "Error", err3 });
-
-            console.log("Registered!");
-            return res.status(200).send({ username, email, status: "unverified" });
-          });
+          return res.status(200).send({ username, email, status: "REG_SUCCESS" });
         });
-      }
+      });
     });
   },
   sendmail: (req, res) => {
@@ -73,40 +89,36 @@ module.exports = {
       }
     });
   },
-  login: (req, res) => {
-    const { username, password, dummy } = req.query;
+  login: (req, res, next) => {
+    let { username, password, dummy } = req.query;
     let sql = `SELECT * FROM user WHERE username='${username}'`;
     mysqldb.query(sql, (err, resUser) => {
-      console.log("user", resUser);
-
       if (err) res.status(500).send(res);
+      // ===== IF USERNAME NOT REGISTERED
       if (resUser[0] === undefined) {
         return res.status(200).send({ message: "Username not found!", status: "WRONG_USER" });
       }
 
       sql = `SELECT * FROM user WHERE username='${username}' AND suspend=0`;
       mysqldb.query(sql, (err, resSuspend) => {
-        // console.log("suspend", resSuspend);
-
         if (err) res.status(500).send(err);
+        // ===== IF USER SUSPENDED
         if (resSuspend[0] === undefined) {
           return res.status(200).send({ message: "Your account is suspended!", status: "SUSPENDED" });
         }
 
+        password = encrypt(password);
         sql = `SELECT u.*, r.rolename as role FROM user u LEFT JOIN role r ON u.roleid = r.id WHERE username='${username}' AND password='${password}' AND u.suspend = 0;`;
         mysqldb.query(sql, (err, resAccount) => {
-          console.log("account", resAccount);
-
           if (err) res.status(500).send(err);
+          // ===== IF PASSWORD WRONG
           if (resAccount[0] === undefined) {
             res.status(200).send({ message: "Wrong password!", status: "WRONG_PASS" });
+          } else {
+            res.status(200).send(resAccount);
           }
-
-          // res.status(200).send(resAccount);
         });
       });
     });
   }
 };
-
-// sql = `SELECT u.*, r.rolename FROM user u LEFT JOIN role r ON u.roleid = r.id WHERE username='${username}' AND (password='${password}' OR dummy='${password}') AND u.suspend = 0;`;
